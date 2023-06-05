@@ -1,6 +1,8 @@
 import path from "path";
 import AutoLoad from "@fastify/autoload";
 import { fileURLToPath } from "url";
+import { sequelize } from "./db/index.js";
+import "./db/models.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,6 +12,9 @@ export const options = {};
 
 export default async function (fastify, opts) {
   // Place here your custom code!
+
+  await sequelize.authenticate();
+  await sequelize.sync();
 
   // Do not touch the following lines
 
